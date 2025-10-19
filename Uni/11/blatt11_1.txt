@@ -1,0 +1,6 @@
+Name : x | Speicher : 0x7ffe7713ff04 | Wert : 0              | Typ : int  
+Name : n | Speicher : 0x7ffe7713ff00 | Wert : 10             | Typ : int  
+Name : y | Speicher : 0x7ffe7713fef8 | Wert : 0x7ffe7713ff00 | Typ : int* 
+
+
+

@@ -1,0 +1,2 @@
+a) beim Dritten Element des Array , bzw index 2 
+b) *ip = 255
