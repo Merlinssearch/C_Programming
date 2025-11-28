@@ -1,1 +1,3 @@
-This Repo is for learning C and is just for fun little projects 
+This Repo is for learning C and is just for fun little projects .
+Learning some concepts ....... 
+All Projects are unfinished !!! 
