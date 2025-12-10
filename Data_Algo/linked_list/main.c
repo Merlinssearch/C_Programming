@@ -23,7 +23,7 @@ Node *createNode(int data) {
   newNode->next = NULL;
   return newNode;
 }
-linkedList initLinkedList() { return list; }
+linkedList *initLinkedList() { return *list; }
 void insertNode(linkedList *list, int data) {}
 void pushElement(linkedList *list, int data) {}
 void popElement(linkedList *list) {}
