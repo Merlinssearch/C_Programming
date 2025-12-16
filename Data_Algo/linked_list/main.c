@@ -1,22 +1,18 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
-// linked list struct
-// typdef struct node damit der compilere versteht das sich dieser struct selbst
-// aufruft sonst fehler
-
-// Node with Int Data and Pointer to next node
+// int data , struct node* next
 typedef struct node {
     int data;
     struct node *next;
 } Node;
 
 // Wrapper for node --> for implementing method
-typedef struct LinkedList {
+typedef struct linkedList {
     struct node *head;    // start Node of list
     struct node *current; // Current Node
     struct node *tail;    // End Node of list
-} linkedList;
+} LinkedList;
 
 //
 Node *createNode(int data) {
@@ -27,61 +23,66 @@ Node *createNode(int data) {
 }
 
 // return a Struct with tail , current and head node
-linkedList *initLinkedList() {
-  linkedList *list = (linkedList *)malloc(sizeof(linkedList));
+LinkedList *initLinkedList() {
+  LinkedList *list = (LinkedList *)malloc(sizeof(LinkedList));
   list->tail = NULL;
   list->current = NULL;
   list->head = NULL;
   return list;
 }
 
-// Insert Element on the Current Node
-void insertNode(linkedList *list, int data) {
-  Node *temp = list->current->next;
+// Insert Element after the Current Node
+bool insertNode(LinkedList *list, int data) {
+  Node *node = createNode(data);
+  if (node == NULL || list == NULL || list->current == NULL)
+    return false;
+
+  node->next = list->current->next;
+  list->current->next = node;
+
+  if (list->current == list->tail) {
+    list->tail = node;
+  }
+  return true;
 }
 
 // insert Element in the end of the list
-void pushElement(linkedList *list, int data) {}
+bool pushElement(LinkedList *list, int data) {
+  Node *node = createNode(data);
+  if (list == NULL)
+    return false;
+  if (node == NULL)
+    return false;
+  if (list->tail == NULL) {
+    list->tail = node;
+    list->head = node;
+  } else {
+    list->tail->next = node;
+    list->tail = node;
+  }
+  return true;
+}
 
-// Delete last node in Liste
-void popElement(linkedList *list) {}
+// Delete last node and return its Data
+int popElement(LinkedList *list) {
+  int data = list->tail->data;
+  if (list->head != NULL) {
+    free(list->tail);
+  }
+  return data;
+}
 
 // if element found --> safe pointer in Current
-void searchElement(linkedList *list) {}
+bool searchElement(LinkedList *list) { return true; }
 
-void freeLinkedList(linkedList **list) {
-  struct node *tmp = list->* head;
-  while (list->head != NULL) {
-    tmp = list->head;
-    list->head = (list->head)->next;
-    free(tmp);
+void freeLinkedList(LinkedList **list) {
+  struct node *ptrTmp;
+  while ((*list)->head != NULL) {
+    ptrTmp = (*list)->head;
+    (*list)->head = (*list)->head->next;
+    free(ptrTmp);
   }
-  free(list);
+  free(*list);
 }
 
-//
-// void freeLinkedList(struct node **head) {
-//   struct node *tmp;
-//   while (*head != NULL) {
-//     tmp = *head;
-//     *head = (*head)->next;
-//     free(tmp);
-//   }
-// }
-
-int main() {
-  Node *first = createNode(0);
-
-  Node *temp = first;
-  for (int i = 1; i < 10; i++) {
-    temp->next = createNode(i);
-    temp = temp->next;
-  }
-  temp = first;
-  while (temp) {
-    printf("%d \n", temp->data);
-    temp = temp->next;
-  }
-  freeLinkedList(&first);
-  return 0;
-}
+int main() { return 0; }
